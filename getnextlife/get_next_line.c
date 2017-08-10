@@ -6,7 +6,7 @@
 /*   By: jcoutare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 21:14:35 by jcoutare          #+#    #+#             */
-/*   Updated: 2017/08/10 11:22:48 by jcoutare         ###   ########.fr       */
+/*   Updated: 2017/08/10 11:33:42 by jcoutare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,21 @@ int		get_next_line(const int fd, char **line)
 			return (1);
 		}
 	}
-	if (!(str = malloc(sizeof(char))))
-		return (-1);
+	if (str == NULL)
+	{
+		if (!(str = malloc(sizeof(char))))
+			return (-1);
+	}
 	if (fd < 0 || BUFF_SIZE == 0)
 		return (-1);
 	while ((ret = read(fd, buffer, BUFF_SIZE)))
 	{
 		buffer[ret] = '\0';
-		printf(">%s\n", str);
 		str = ft_strjoin(str, buffer);
-		printf(">>%s\n", str);
 		if (newline(str, line) > 0)
 		{
 			tmp = str + (strichr(str, '\n') + 1);
 			str = tmp;
-			printf(">>>%s\n", str);
 			return (1);
 		}
 	}
