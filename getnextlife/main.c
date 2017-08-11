@@ -8,18 +8,17 @@ int     main(int ac, char **av)
 
     if ((fd = open(av[1], O_RDONLY)) == -1)
         return (0);
-    printf("buff_size = %d\n", BUFF_SIZE);
 
-    int vGNL = get_next_line(fd, &line);
-    printf("[%d] >%s| vGNL = [%d]\n",i++, line, vGNL);
-	/*  vGNL = get_next_line(fd, &line);
-    printf("[%d] >%s| vGNL = [%d]\n",i++, line, vGNL);
-    vGNL = get_next_line(fd, &line);
+	int vGNL = get_next_line(fd, &line);
+	printf("[%d] >%s| vGNL = [%d]\n",i++, line, vGNL);
+	vGNL = get_next_line(fd, &line);
     printf("[%d] >%s| vGNL = [%d]\n",i++, line, vGNL);
     vGNL = get_next_line(fd, &line);
     printf("[%d] >%s| vGNL = [%d]\n",i++, line, vGNL);
     vGNL = get_next_line(fd, &line);
-    printf("[%d] >%s| vGNL = [%d]\n",i++, line, vGNL); */
-    return(0);
+    printf("[%d] >%s| vGNL = [%d]\n",i++, line, vGNL);
+    vGNL = get_next_line(fd, &line);
+    printf("[%d] >%s [%d]\n",i++, line, vGNL);
+	return(0);
 }
 
