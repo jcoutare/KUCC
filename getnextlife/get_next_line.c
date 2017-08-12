@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line1.c                                   :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcoutare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/11 07:58:36 by jcoutare          #+#    #+#             */
-/*   Updated: 2017/08/11 13:06:16 by jcoutare         ###   ########.fr       */
+/*   Updated: 2017/08/12 13:12:09 by jcoutare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int		strichr(char *str, char c)
 {
 	int i;
 
-
 	i = 0;
 	while (str[i])
 	{
@@ -24,14 +23,16 @@ int		strichr(char *str, char c)
 			return (i);
 		i++;
 	}
+	if (str[i] == c)
+		return (i);
 	return (-1);
 }
 
-int newline(char *str, char **line)
+int		newline(char *str, char **line)
 {
-    int ibackn;
+	int ibackn;
 
-    if ((ibackn = strichr(str, '\n')) == -1)
+	if ((ibackn = strichr(str, '\n')) == -1)
 		return (0);
 	else
 	{
@@ -41,39 +42,38 @@ int newline(char *str, char **line)
 	return (0);
 }
 
-int get_next_line(const int fd, char **line)
+int		get_next_line(const int fd, char **line)
 {
 	static char buffer[BUFF_SIZE + 1];
 	int ret;
 	char *tmp;
 
-	if (fd < 0 || BUFF_SIZE == 0)
-		return (-1);
-	if (!(tmp = malloc(sizeof(char))))
+	if (fd < 0 || BUFF_SIZE == 0 || !line)
 		return (-1);
 	if (newline(buffer, line) == 1)
 	{
-		printf("@> %s\n", buffer);
 		ft_strcpy(buffer, ft_strchr(buffer, '\n') + 1);
 		return (1);
 	}
-	while ((ret = read(fd, buffer, BUFF_SIZE)))
+	else
+		tmp = ft_strdup(buffer);
+	while ((ret = read(fd, buffer, BUFF_SIZE)) > 0)
 	{
 		buffer[ret] = '\0';
 		tmp = ft_strjoin(tmp, buffer);
-		if (newline(buffer, line)== 1)
+		if (newline(tmp, line) == 1)
 		{
-			printf("1>%s\n", buffer);
 			ft_strcpy(buffer, ft_strchr(buffer, '\n') + 1);
 			return (1);
 		}
 	}
-	if (newline(buffer, line))
-		*line = buffer;
-	if (ret == 0)
+	if (ret == -1)
+		return (-1);
+	if (buffer[0] != '\0')
 	{
 		*line = tmp;
-		return (0);
+		buffer[0] = '\0';
+		return (1);
 	}
 	return (0);
 }
