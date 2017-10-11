@@ -14,11 +14,26 @@ NAME = libft.a
 
 CC = gcc
 
-INCLUDES += -I libft.h
+CFLAGS += -Wall -Wextra -Werror -Iincludes
 
-CFLAGS += -Wall -Wextra -Werror $(INCLUDES)
-
-SRC =	ft_putstr.c \
+SRC =		fct_unicode.c \
+		larg_prec_tools.c \
+		fct_conv_char.c \
+		fct_conv_number.c \
+		fill_resolved.c \
+		make_zero.c \
+		fct_flags2.c \
+		modif_tools.c \
+		fct_conv.c \
+		fct_flags.c \
+		fct_modif.c \
+		itoa_base.c \
+		larg_prec.c \
+		make_flags.c \
+		run.c \
+		run_tools.c \
+		tab.c \
+		ft_putstr.c \
 		ft_strcmp.c \
 		ft_strdup.c \
 		ft_strlen.c \
@@ -53,8 +68,8 @@ SRC =	ft_putstr.c \
 		ft_strnstr.c \
 		ft_strrchr.c \
 		ft_memdel.c \
-		ft_strnew.c	\
-		ft_strdel.c	\
+		ft_strnew.c \
+		ft_strdel.c \
 		ft_strclr.c \
 		ft_striter.c \
 		ft_striteri.c \
@@ -82,7 +97,8 @@ SRC =	ft_putstr.c \
 		ft_list_size.c \
 		ft_list_at.c \
 		ft_list_push_back.c \
-		ft_list_reverse.c
+		ft_list_reverse.c \
+		get_next_line.c
 
 OBJ = $(SRC:.c=.o)
 

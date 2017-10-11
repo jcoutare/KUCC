@@ -1,40 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   itoa_base.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcoutare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/10 16:01:43 by jcoutare          #+#    #+#             */
-/*   Updated: 2017/09/29 15:13:19 by jcoutare         ###   ########.fr       */
+/*   Created: 2017/09/05 14:25:04 by jcoutare          #+#    #+#             */
+/*   Updated: 2017/10/02 16:13:39 by jcoutare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_itoa_base(unsigned long long nbr, unsigned int base)
 {
-	char		*str;
-	size_t		i;
-	size_t		j;
-	size_t		size;
+	static char			tab[16] = "0123456789ABCDEF";
+	char				*str;
+	int					len;
+	unsigned long long	nb;
 
-	i = -1;
-	j = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
-	size = ft_strlen(s1) + ft_strlen(s2);
-	if ((str = malloc(sizeof(char) * (size + 1))) == 0)
-		return (NULL);
-	while (s1[++i])
-		str[i] = s1[i];
-	while (s2[j])
+	nb = nbr;
+	len = 1;
+	while (nb >= base)
 	{
-		str[i + j] = s2[j];
-		j++;
+		nb = nb / base;
+		len++;
 	}
-	if (s1)
-		free((void *)s1);
-	str[i + j] = '\0';
+	if ((str = malloc(sizeof(char) * (len + 1))) == NULL)
+		return (NULL);
+	str[len--] = 0;
+	while (nbr >= base)
+	{
+		str[len--] = tab[nbr % base];
+		nbr = nbr / base;
+	}
+	str[len] = tab[nbr % base];
 	return (str);
 }
